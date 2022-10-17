@@ -1,5 +1,28 @@
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
+    public static void main(String[] args) throws FileNotFoundException {
+        System.out.println("Simulated Annealing!");
+        Scanner in = new Scanner(System.in);
+        String input = in.nextLine();
+        DistanceMatrix d= new DistanceMatrix("DistancesExample.txt");
+        ArrayList<String> cities = d.getCities();
+        for (String c : cities)
+            System.out.println(c);
+
+        ArrayList<ArrayList<Integer>> distances = d.getDistances();
+        for (int i = 0; i < distances.size() - 1; i++){
+            for(int j = 0; j < distances.get(i).size(); j++){
+                System.out.println("Index "+i+" ("+cities.get(i)+") -> "+ distances.get(i).get(j));
+            }
+        }
+
+        ArrayList<String> myCities = d.getCities(input);
+        System.out.println("Filtered cities!");
+        for (String c : myCities)
+            System.out.println(c);
+
     }
 }
