@@ -4,8 +4,13 @@ import java.util.Random;
 
 public class SimulatedAnnealingClass {
 
+    // Constants
     private static final double ACCEPTANCE = 0.8;
-    private static final int N_INT_OPTIMIZER = 40;
+    private static final int N_INT_OPTIMIZER_BASE = 42;
+    private static final int N_LETTERS = 20;
+    private static final int N_INT_SCALER = 15;
+
+    // Variables
     private double coolingRate;
     private double T;
     private final RouteClass firstRoute;
@@ -15,6 +20,7 @@ public class SimulatedAnnealingClass {
     private DistanceMatrix dm;
     private int attempts;
     private int acceptedAttempts;
+    private int nIntOtimizer;
 
     public SimulatedAnnealingClass(String filter, DistanceMatrix dm, double coolingRate){
         // First Route to compare solutions
@@ -36,6 +42,12 @@ public class SimulatedAnnealingClass {
         // Attempts Counters
         this.attempts = 0;
         this.acceptedAttempts = 0;
+
+        // Inits nIntOtimizer. nIntScaler increases when the number of letters decreases,
+        //      decreasing the calculation time for lower filters
+        int nIntScaler = N_INT_SCALER * (N_LETTERS/filter.length());
+        nIntOtimizer = N_INT_OPTIMIZER_BASE + nIntScaler;
+        System.out.println("nIntOtimizer value: " + nIntOtimizer);
 
     }
 
@@ -104,9 +116,10 @@ public class SimulatedAnnealingClass {
             else // TODO: implement a cooling function
                 cooling();
 
-            double ratio = (double)this.acceptedAttempts / (double)this.attempts;
-            n_iterations = n_iterations * (1.0 + (1 - ratio)/N_INT_OPTIMIZER);
 
+            double ratio = 1- ((double)this.acceptedAttempts / (double)this.attempts);
+            n_iterations = n_iterations * (1.0 + (ratio)/nIntOtimizer);
+            System.out.printf("\rCompleted: %.2f%%", Math.min(100*ratio/0.8, 100));
             if (!isAcceptableToContinue()) break;
         }
         return bestRoute;
