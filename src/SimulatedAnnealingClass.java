@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class SimulatedAnnealingClass {
 
-    private static final double ALPHA = 0.9;
     private static final double ACCEPTANCE = 0.8;
+    private static final int N_INT_OPTIMIZER = 40;
     private double coolingRate;
     private double T;
     private final RouteClass firstRoute;
@@ -42,7 +42,7 @@ public class SimulatedAnnealingClass {
     private double setInitialTemp(DistanceMatrix dm) {
         int maxDistance = Integer.MIN_VALUE;
         int minDistance = Integer.MAX_VALUE;
-        for (int i = 0 ; i < this.firstRoute.getRouteSize(); i ++){
+        for (int i = 0 ; i < this.firstRoute.getRouteSize()-1; i ++){
                 for (int j = i + 1; j < this.firstRoute.getRouteSize(); j ++){
                     int d = dm.distance(this.firstRoute.getCity(i), this.firstRoute.getCity(j));
                     if (maxDistance < d) maxDistance = d;
@@ -63,11 +63,10 @@ public class SimulatedAnnealingClass {
     public RouteClass searchRoute(){
 
         // Loop until system has cooled
-
+        double n_iterations = 10.0;
         while (T >= 1.0){
-            int n_iterations = defineIterationNumber();
-            // TODO: Loop n iterations till decrease T
-            //for (int n = 0 ; n < n_iterations ; n++) {
+
+            for (int n = 0 ; n < (int)n_iterations ; n++) {
                 this.attempts++;
 
                 // Create new neighbour route
@@ -90,14 +89,14 @@ public class SimulatedAnnealingClass {
                 double prob = acceptProbability(currentDistance, neighbourDistance);
                 double randProb = randomDouble();
 
-                if (prob > randProb) {
+                if (prob >= randProb) {
                     this.currentRoute = neighbourRoute;
                     this.acceptedAttempts++;
                     // Check if bestRoute is still the better one
                     if (this.currentRoute.getTotalRouteDistance() < this.bestRoute.getTotalRouteDistance())
                         this.bestRoute = this.currentRoute;
                 }
-            //}
+            }
             // Cooling function
             // Cooling in geometric form
             if (coolingRate > 0.0)
@@ -105,20 +104,24 @@ public class SimulatedAnnealingClass {
             else // TODO: implement a cooling function
                 cooling();
 
+            double ratio = (double)this.acceptedAttempts / (double)this.attempts;
+            n_iterations = n_iterations * (1.0 + (1 - ratio)/N_INT_OPTIMIZER);
+
             if (!isAcceptableToContinue()) break;
         }
         return bestRoute;
     }
 
     private boolean isAcceptableToContinue() {
-        return ACCEPTANCE > (1.0 - ((float)this.acceptedAttempts / (float)this.attempts));
+        return ACCEPTANCE > (1.0 - ((double)this.acceptedAttempts / (double)this.attempts));
     }
 
     private void cooling() {
     }
 
-    private int defineIterationNumber() {
-        return 0;
+    private double defineIterationNumber(int n_iterations) {
+        return 0.0;
+
     }
 
     // Just a debug function to confirm result of searchRoute
