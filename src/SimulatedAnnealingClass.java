@@ -6,12 +6,12 @@ public class SimulatedAnnealingClass {
 
     // Constants
     private static final double ACCEPTANCE = 0.8;
+    private static final double ALPHA = 0.998;
     private static final int N_INT_OPTIMIZER_BASE = 42;
     private static final int N_LETTERS = 20;
     private static final int N_INT_SCALER = 15;
 
     // Variables
-    private double coolingRate;
     private double T;
     private final RouteClass firstRoute;
     private RouteClass bestRoute;
@@ -21,8 +21,9 @@ public class SimulatedAnnealingClass {
     private int attempts;
     private int acceptedAttempts;
     private int nIntOtimizer;
+    private double n_iterations = 10.0;
 
-    public SimulatedAnnealingClass(String filter, DistanceMatrix dm, double coolingRate){
+    public SimulatedAnnealingClass(String filter, DistanceMatrix dm){
         // First Route to compare solutions
         this.firstRoute = new RouteClass(filter, dm);
         //create random initial solution
@@ -32,8 +33,6 @@ public class SimulatedAnnealingClass {
         this.bestRoute = this.firstRoute;
         //Set initial temp
         this.T = setInitialTemp(dm);
-        //Cooling rate
-        this.coolingRate = coolingRate;
         // Distance Matrix
         this.dm = dm;
         // All generated solutions
@@ -75,7 +74,6 @@ public class SimulatedAnnealingClass {
     public RouteClass searchRoute(){
 
         // Loop until system has cooled
-        double n_iterations = 10.0;
         while (T >= 1.0){
 
             for (int n = 0 ; n < (int)n_iterations ; n++) {
@@ -109,17 +107,11 @@ public class SimulatedAnnealingClass {
                         this.bestRoute = this.currentRoute;
                 }
             }
-            // Cooling function
+
             // Cooling in geometric form
-            if (coolingRate > 0.0)
-                T *= 1 - coolingRate;
-            else // TODO: implement a cooling function
-                cooling();
+            cooling();
 
-
-            double ratio = 1- ((double)this.acceptedAttempts / (double)this.attempts);
-            n_iterations = n_iterations * (1.0 + (ratio)/nIntOtimizer);
-            System.out.printf("\rCompleted: %.2f%%", Math.min(100*ratio/0.8, 100));
+            // Stops the algorithm when we have good values
             if (!isAcceptableToContinue()) break;
         }
         return bestRoute;
@@ -130,6 +122,13 @@ public class SimulatedAnnealingClass {
     }
 
     private void cooling() {
+        // Cools the temperature
+        T *= ALPHA;
+
+        // Changes the number of iterations with the temperature value
+        double ratio = 1- ((double)this.acceptedAttempts / (double)this.attempts);
+        n_iterations = n_iterations * (1.0 + (ratio)/nIntOtimizer);
+        System.out.printf("\rCompleted: %.2f%%", Math.min(100*ratio/0.8, 100));
     }
 
     private double defineIterationNumber(int n_iterations) {

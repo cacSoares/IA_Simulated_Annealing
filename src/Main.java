@@ -8,7 +8,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         DistanceMatrix d = new DistanceMatrix("DistancesExample.txt");
-        SimulatedAnnealingClass sa = new SimulatedAnnealingClass(input, d, 0.002);
+        SimulatedAnnealingClass sa = new SimulatedAnnealingClass(input, d);
         System.out.println("First route:\t"+sa.getFirstRoute());
         System.out.println("\nBest route:\t\t"+sa.searchRoute());
         System.out.println("Debug route:\t"+sa.confirmResult());

@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1d8be91-534e-4195-b294-e27fe6afeb06" name="Changes" comment="Updated SimulatedAnnealingClass">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="e1d8be91-534e-4195-b294-e27fe6afeb06" name="Changes" comment="Updated SimulatedAnnealingClass. Now the calculation time is directly proportionate to the number of letters">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SimulatedAnnealingClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimulatedAnnealingClass.java" afterDir="false" />
@@ -78,7 +77,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666093886552</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Updated SimulatedAnnealingClass. Now the calculation time is directly proportionate to the number of letters">
+      <created>1666113147734</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1666113147734</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -97,6 +103,7 @@
     <MESSAGE value="New Class's and pseudoCode" />
     <MESSAGE value="Implemented SimulatedAnnealing Algorithm" />
     <MESSAGE value="Updated SimulatedAnnealingClass" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated SimulatedAnnealingClass" />
+    <MESSAGE value="Updated SimulatedAnnealingClass. Now the calculation time is directly proportionate to the number of letters" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated SimulatedAnnealingClass. Now the calculation time is directly proportionate to the number of letters" />
   </component>
 </project>
