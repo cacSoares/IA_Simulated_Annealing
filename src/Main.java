@@ -7,7 +7,13 @@ public class Main {
         System.out.println("Simulated Annealing!");
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
-        DistanceMatrix d= new DistanceMatrix("DistancesExample.txt");
+        DistanceMatrix d = new DistanceMatrix("DistancesExample.txt");
+        SimulatedAnnealingClass sa = new SimulatedAnnealingClass(input, d, 0.002);
+        System.out.println(sa.searchRoute());
+        System.out.println(sa.confirmResult());
+        System.out.println(sa);
+
+        /*
         ArrayList<String> cities = d.getCities();
         for (String c : cities)
             System.out.println(c);
@@ -23,6 +29,10 @@ public class Main {
         System.out.println("Filtered cities!");
         for (String c : myCities)
             System.out.println(c);
+*/
+        //RouteClass route = new RouteClass("ADECB", d);
+
+        //System.out.println(route);
 
     }
 }
