@@ -7,7 +7,7 @@ public class SimulatedAnnealingClass {
     // Constants
     private static final double ACCEPTANCE = 0.8;
     private static final double ALPHA = 0.998;
-    private static final int N_INT_OPTIMIZER_BASE = 42;
+    private static final int N_INT_OPTIMIZER_BASE = 40;
     private static final int N_LETTERS = 20;
     private static final int N_INT_SCALER = 15;
 
@@ -46,8 +46,6 @@ public class SimulatedAnnealingClass {
         //      decreasing the calculation time for lower filters
         int nIntScaler = N_INT_SCALER * (N_LETTERS/filter.length());
         nIntOtimizer = N_INT_OPTIMIZER_BASE + nIntScaler;
-        System.out.println("nIntOtimizer value: " + nIntOtimizer);
-
     }
 
     private double setInitialTemp(DistanceMatrix dm) {

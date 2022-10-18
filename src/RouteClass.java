@@ -10,12 +10,12 @@ public class RouteClass {
 
     public RouteClass(String filter, DistanceMatrix dm){
         this.route = dm.getCities(filter);
-        swapRoute();
+        Collections.shuffle(this.route);
         setTotalRouteDistance(dm);
     }
     public RouteClass(RouteClass route, DistanceMatrix dm) {
         this.route = dm.getCities(dm.getInitials(route.getAllCities()));
-        swapRoute();
+        Collections.shuffle(this.route);
         setTotalRouteDistance(dm);
     }
 
@@ -52,7 +52,6 @@ public class RouteClass {
     public void swapRoute(){
         Random rand = new Random();
 
-        // Get random indexes
         int idx1 = rand.nextInt(route.size());
         int idx2 = rand.nextInt(route.size());
 
@@ -65,8 +64,6 @@ public class RouteClass {
         String aux = route.get(idx1);
         route.set(idx1, route.get(idx2));
         route.set(idx2, aux);
-
-        System.out.println("Hello");
     }
 
     public String toString(){

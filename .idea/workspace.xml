@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1d8be91-534e-4195-b294-e27fe6afeb06" name="Changes" comment="Added cooling function">
+    <list default="true" id="e1d8be91-534e-4195-b294-e27fe6afeb06" name="Changes" comment="Added swap function">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RouteClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RouteClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimulatedAnnealingClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimulatedAnnealingClass.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +91,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666116274882</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added swap function">
+      <created>1666130611183</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1666130611184</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -111,6 +119,7 @@
     <MESSAGE value="Updated SimulatedAnnealingClass" />
     <MESSAGE value="Updated SimulatedAnnealingClass. Now the calculation time is directly proportionate to the number of letters" />
     <MESSAGE value="Added cooling function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added cooling function" />
+    <MESSAGE value="Added swap function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added swap function" />
   </component>
 </project>
