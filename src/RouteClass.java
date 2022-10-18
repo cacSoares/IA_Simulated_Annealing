@@ -59,7 +59,7 @@ public class RouteClass {
             i++;
         }
         sb.append(route.get(0));
-        sb.append(" ] With total route distance: ");
+        sb.append(" ]\tWith total route distance: ");
         sb.append(this.getTotalRouteDistance());
         return sb.toString();
     }

@@ -4,12 +4,14 @@ import java.util.Random;
 
 public class SimulatedAnnealingClass {
 
+    private static final double ALPHA = 0.9;
+    private static final double ACCEPTANCE = 0.8;
+    private double coolingRate;
+    private double T;
     private final RouteClass firstRoute;
     private RouteClass bestRoute;
     private RouteClass currentRoute;
     private ArrayList<RouteClass> allRoutes;
-    private double coolingRate;
-    private double T;
     private DistanceMatrix dm;
     private int attempts;
     private int acceptedAttempts;
@@ -54,41 +56,69 @@ public class SimulatedAnnealingClass {
         return (-(maxDistance - minDistance)) / Math.log(0.9);
     }
 
+    public RouteClass getFirstRoute(){
+        return this.firstRoute;
+    }
 
     public RouteClass searchRoute(){
 
         // Loop until system has cooled
 
         while (T >= 1.0){
-            this.attempts++;
-            // Create new neighbour route
-            RouteClass neighbourRoute = new RouteClass(this.currentRoute, dm);
-            allRoutes.add(neighbourRoute);
+            int n_iterations = defineIterationNumber();
+            // TODO: Loop n iterations till decrease T
+            //for (int n = 0 ; n < n_iterations ; n++) {
+                this.attempts++;
 
-            // TODO if necessary
-            // Get random positions in the route (make sure that routePos1 and routePos2 are different)
-            // Get the cities at selected positions in the route
-            // Swap them
+                // Create new neighbour route
+                RouteClass neighbourRoute = new RouteClass(this.currentRoute, dm);
+                allRoutes.add(neighbourRoute);
 
-            // Get energy of solutions
-            int currentDistance = this.currentRoute.getTotalRouteDistance();
-            int neighbourDistance = neighbourRoute.getTotalRouteDistance();
+                // TODO if necessary
+                // The actual solution runs with the implementation of Collections.shuffle
+                // We can implement a minor changes in initial route by swapping only two cities a time
+                // Get random positions in the route (make sure that routePos1 and routePos2 are different)
+                // Get the cities at selected positions in the route
+                // Swap them
+                // If so: TODO: implement a function to get random integer in a range of [ 0 - neighbourRoute.size() - 1 ]
 
-            // Decide if we should accept the neighbour
-            double prob = acceptProbability(currentDistance, neighbourDistance);
-            double rand = randomDouble();
+                // Get energy of solutions
+                int currentDistance = this.currentRoute.getTotalRouteDistance();
+                int neighbourDistance = neighbourRoute.getTotalRouteDistance();
 
-            if ( prob > rand ) {
-                this.currentRoute = neighbourRoute;
-                this.acceptedAttempts++;
-                // Check if bestRoute is still the better one
-                if (this.currentRoute.getTotalRouteDistance() < this.bestRoute.getTotalRouteDistance())
-                    this.bestRoute = this.currentRoute;
-            }
-            // Cooling
-            T *= 1 - coolingRate;
+                // Decide if we should accept the neighbour
+                double prob = acceptProbability(currentDistance, neighbourDistance);
+                double randProb = randomDouble();
+
+                if (prob > randProb) {
+                    this.currentRoute = neighbourRoute;
+                    this.acceptedAttempts++;
+                    // Check if bestRoute is still the better one
+                    if (this.currentRoute.getTotalRouteDistance() < this.bestRoute.getTotalRouteDistance())
+                        this.bestRoute = this.currentRoute;
+                }
+            //}
+            // Cooling function
+            // Cooling in geometric form
+            if (coolingRate > 0.0)
+                T *= 1 - coolingRate;
+            else // TODO: implement a cooling function
+                cooling();
+
+            if (!isAcceptableToContinue()) break;
         }
         return bestRoute;
+    }
+
+    private boolean isAcceptableToContinue() {
+        return ACCEPTANCE > (1.0 - ((float)this.acceptedAttempts / (float)this.attempts));
+    }
+
+    private void cooling() {
+    }
+
+    private int defineIterationNumber() {
+        return 0;
     }
 
     // Just a debug function to confirm result of searchRoute

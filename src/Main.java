@@ -9,8 +9,9 @@ public class Main {
         String input = in.nextLine();
         DistanceMatrix d = new DistanceMatrix("DistancesExample.txt");
         SimulatedAnnealingClass sa = new SimulatedAnnealingClass(input, d, 0.002);
-        System.out.println(sa.searchRoute());
-        System.out.println(sa.confirmResult());
+        System.out.println("First route:\t"+sa.getFirstRoute());
+        System.out.println("Best route:\t\t"+sa.searchRoute());
+        System.out.println("Debug route:\t"+sa.confirmResult());
         System.out.println(sa);
 
         /*
