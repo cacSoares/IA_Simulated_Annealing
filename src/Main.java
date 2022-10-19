@@ -1,5 +1,4 @@
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -10,11 +9,11 @@ public class Main {
         DistanceMatrix d = new DistanceMatrix("DistancesExample.txt");
         SimulatedAnnealingClass sa = new SimulatedAnnealingClass(input, d);
         System.out.println("First route:\t"+sa.getFirstRoute());
-        System.out.println("\nBest route:\t\t"+sa.searchRoute());
+        System.out.println("\nBest route:\t\t"+sa.searchSolution());
         System.out.println(sa);
         // 1 - ADPTUV - 700
         // 2 - CDGILNOQRSTU - 1546
         // 3 - BCDEFGHILMNOPQRSTU - 1718
-        // 4 - ABCDEFGHIJLMNOPQRSTUV - 1943
+        // 4 - ABCDEFGHIJLMNOPQRSTUV - 1868
     }
 }

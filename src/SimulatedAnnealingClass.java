@@ -4,8 +4,8 @@ import java.util.Random;
 public class SimulatedAnnealingClass {
 
     // Constants
-    private static final double ACCEPTANCE = 0.8;
-    private static final double ALPHA = 0.9965;
+    private static final double ACCEPTANCE = 0.95;
+    private static final double ALPHA = 0.995;
     private static final int N_INT_OPTIMIZER_BASE = 45;
     private static final int N_LETTERS = 20;
     private static final int N_INT_SCALER = 15;
@@ -69,14 +69,16 @@ public class SimulatedAnnealingClass {
         return this.firstRoute;
     }
 
-    public RouteClass searchRoute(){
-
+    public RouteClass searchSolution(){
+        double tMax = T;
         if (this.firstRoute.getRouteSize() <= 3){
             return this.firstRoute;
         }
 
         // Loop until system has cooled
-        while (T >= 1.0){
+        while (T >= 0.1){
+            // Shows solution progress
+            System.out.printf("\rCompleted: %.2f%%", Math.min(100*(tMax - T)/ (tMax-28),100));
 
             for (int n = 0 ; n < (int)n_iterations ; n++) {
                 this.attempts++;
@@ -121,8 +123,6 @@ public class SimulatedAnnealingClass {
         // Changes the number of iterations with the temperature value
         double ratio = 1- ((double)this.acceptedAttempts / (double)this.attempts);
         n_iterations = n_iterations * (1.0 + (ratio)/ nIntOptimizer);
-
-        System.out.printf("\rCompleted: %.2f%%", Math.min(100*ratio/0.8, 100));
     }
 
     private double defineIterationNumber(int n_iterations) {
