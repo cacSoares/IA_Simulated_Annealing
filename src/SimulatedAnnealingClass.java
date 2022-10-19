@@ -5,7 +5,7 @@ public class SimulatedAnnealingClass {
 
     // Constants
     private static final double ACCEPTANCE = 0.8;
-    private static final double ALPHA = 0.995;
+    private static final double ALPHA = 0.9965;
     private static final int N_INT_OPTIMIZER_BASE = 45;
     private static final int N_LETTERS = 20;
     private static final int N_INT_SCALER = 15;

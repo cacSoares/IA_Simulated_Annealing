@@ -52,8 +52,8 @@ public class RouteClass {
     public void swapCitiesInRoute(){
         Random rand = new Random();
 
-        int idx1 = rand.nextInt(route.size());
-        int idx2 = rand.nextInt(route.size());
+        int idx1 = rand.nextInt(route.size()-1);
+        int idx2 = rand.nextInt(route.size()-1);
 
         // Makes sure that the second number is different than the first
         while(idx2 == idx1 || (Math.abs(idx1-idx2) == 1)){

@@ -12,9 +12,9 @@ public class Main {
         System.out.println("First route:\t"+sa.getFirstRoute());
         System.out.println("\nBest route:\t\t"+sa.searchRoute());
         System.out.println(sa);
-        // 1 - ADPTUV
-        // 2 - CDGILNOQRSTU
-        // 3 - BCDEFGHILMNOPQRSTU
-        // 4 - ABCDEFGHIJLMNOPQRSTUV
+        // 1 - ADPTUV - 700
+        // 2 - CDGILNOQRSTU - 1546
+        // 3 - BCDEFGHILMNOPQRSTU - 1718
+        // 4 - ABCDEFGHIJLMNOPQRSTUV - 1943
     }
 }
