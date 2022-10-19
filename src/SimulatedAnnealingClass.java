@@ -6,7 +6,7 @@ public class SimulatedAnnealingClass {
     // Constants
     private static final double ACCEPTANCE = 0.95;
     private static final double ALPHA = 0.995;
-    private static final int N_INT_OPTIMIZER_BASE = 45;
+    private static final int N_INT_OPTIMIZER_BASE = 39;
     private static final int N_LETTERS = 20;
     private static final int N_INT_SCALER = 15;
 
@@ -76,9 +76,9 @@ public class SimulatedAnnealingClass {
         }
 
         // Loop until system has cooled
-        while (T >= 0.1){
+        while (true){
             // Shows solution progress
-            System.out.printf("\rCompleted: %.2f%%", Math.min(100*(tMax - T)/ (tMax-28),100));
+            System.out.printf("\rCompleted: %.2f%%", Math.min(100*(tMax - T)/ (tMax-34),100));
 
             for (int n = 0 ; n < (int)n_iterations ; n++) {
                 this.attempts++;
@@ -155,7 +155,7 @@ public class SimulatedAnnealingClass {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Total attempts: "+"\t\t\t"+this.attempts+"\n");
-        sb.append("Total acceptedAttempts: "+"\t"+this.acceptedAttempts+"\n");
+        sb.append("Total acceptedAttempts: "+"\t"+this.acceptedAttempts);
         return sb.toString();
     }
 
