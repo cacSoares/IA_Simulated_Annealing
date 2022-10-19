@@ -1,13 +1,12 @@
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Random;
 
 public class SimulatedAnnealingClass {
 
     // Constants
     private static final double ACCEPTANCE = 0.8;
-    private static final double ALPHA = 0.998;
-    private static final int N_INT_OPTIMIZER_BASE = 40;
+    private static final double ALPHA = 0.995;
+    private static final int N_INT_OPTIMIZER_BASE = 45;
     private static final int N_LETTERS = 20;
     private static final int N_INT_SCALER = 15;
 
@@ -20,7 +19,7 @@ public class SimulatedAnnealingClass {
     private DistanceMatrix dm;
     private int attempts;
     private int acceptedAttempts;
-    private int nIntOtimizer;
+    private int nIntOptimizer;
     private double n_iterations = 10.0;
 
     public SimulatedAnnealingClass(String filter, DistanceMatrix dm){
@@ -42,10 +41,11 @@ public class SimulatedAnnealingClass {
         this.attempts = 0;
         this.acceptedAttempts = 0;
 
-        // Inits nIntOtimizer. nIntScaler increases when the number of letters decreases,
-        //      decreasing the calculation time for lower filters
+        // Inits nIntOptimizer. nIntScaler increases when the number of letters decreases,
+        // Decreasing the calculation time for lower filters
+        // N_INT_SCALER * (N_LETTERS/filter.length()); if filter.length() = 21 -> nIntScaler = 0 [(int)20/21 -> 0]
         int nIntScaler = N_INT_SCALER * (N_LETTERS/filter.length());
-        nIntOtimizer = N_INT_OPTIMIZER_BASE + nIntScaler;
+        nIntOptimizer = N_INT_OPTIMIZER_BASE + nIntScaler;
     }
 
     private double setInitialTemp(DistanceMatrix dm) {
@@ -71,6 +71,10 @@ public class SimulatedAnnealingClass {
 
     public RouteClass searchRoute(){
 
+        if (this.firstRoute.getRouteSize() <= 3){
+            return this.firstRoute;
+        }
+
         // Loop until system has cooled
         while (T >= 1.0){
 
@@ -80,14 +84,6 @@ public class SimulatedAnnealingClass {
                 // Create new neighbour route
                 RouteClass neighbourRoute = new RouteClass(this.currentRoute, dm);
                 allRoutes.add(neighbourRoute);
-
-                // TODO if necessary
-                // The actual solution runs with the implementation of Collections.shuffle
-                // We can implement a minor changes in initial route by swapping only two cities a time
-                // Get random positions in the route (make sure that routePos1 and routePos2 are different)
-                // Get the cities at selected positions in the route
-                // Swap them
-                // If so: TODO: implement a function to get random integer in a range of [ 0 - neighbourRoute.size() - 1 ]
 
                 // Get energy of solutions
                 int currentDistance = this.currentRoute.getTotalRouteDistance();
@@ -122,10 +118,10 @@ public class SimulatedAnnealingClass {
     private void cooling() {
         // Cools the temperature
         T *= ALPHA;
-
         // Changes the number of iterations with the temperature value
         double ratio = 1- ((double)this.acceptedAttempts / (double)this.attempts);
-        n_iterations = n_iterations * (1.0 + (ratio)/nIntOtimizer);
+        n_iterations = n_iterations * (1.0 + (ratio)/ nIntOptimizer);
+
         System.out.printf("\rCompleted: %.2f%%", Math.min(100*ratio/0.8, 100));
     }
 
@@ -160,9 +156,6 @@ public class SimulatedAnnealingClass {
         StringBuilder sb = new StringBuilder();
         sb.append("Total attempts: "+"\t\t\t"+this.attempts+"\n");
         sb.append("Total acceptedAttempts: "+"\t"+this.acceptedAttempts+"\n");
-
-
-
         return sb.toString();
     }
 

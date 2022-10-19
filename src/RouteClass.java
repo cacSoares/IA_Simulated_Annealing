@@ -15,8 +15,8 @@ public class RouteClass {
     }
     public RouteClass(RouteClass route, DistanceMatrix dm) {
         this.route = dm.getCities(dm.getInitials(route.getAllCities()));
-        Collections.shuffle(this.route);
-        setTotalRouteDistance(dm);
+        this.swapCitiesInRoute();
+        this.setTotalRouteDistance(dm);
     }
 
 
@@ -49,14 +49,14 @@ public class RouteClass {
         return this.route;
     }
 
-    public void swapRoute(){
+    public void swapCitiesInRoute(){
         Random rand = new Random();
 
         int idx1 = rand.nextInt(route.size());
         int idx2 = rand.nextInt(route.size());
 
         // Makes sure that the second number is different than the first
-        while(idx2 == idx1){
+        while(idx2 == idx1 || (Math.abs(idx1-idx2) == 1)){
             idx2 = rand.nextInt(route.size());
         }
 
