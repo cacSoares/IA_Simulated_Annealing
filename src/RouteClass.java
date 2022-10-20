@@ -8,11 +8,12 @@ public class RouteClass {
     private int totalRouteDistance;
     private ArrayList<String> route;
 
-    public RouteClass(String filter, DistanceMatrix dm){
+    public RouteClass(String filter, DistanceMatrix dm) {
         this.route = dm.getCities(filter);
         Collections.shuffle(this.route);
         setTotalRouteDistance(dm);
     }
+
     public RouteClass(RouteClass route, DistanceMatrix dm) {
         this.route = dm.getCities(dm.getInitials(route.getAllCities()));
         this.swapCitiesInRoute();
@@ -20,23 +21,23 @@ public class RouteClass {
     }
 
 
-    private void setTotalRouteDistance(DistanceMatrix dm){
+    private void setTotalRouteDistance(DistanceMatrix dm) {
         int distance = 0;
         int routeSize = this.route.size();
-        for (int i = 0; i < routeSize; i++){
-            if (i < routeSize-1)
-                distance += dm.distance(route.get(i), route.get(i+1));
+        for (int i = 0; i < routeSize; i++) {
+            if (i < routeSize - 1)
+                distance += dm.distance(route.get(i), route.get(i + 1));
             else
                 distance += dm.distance(route.get(i), route.get(0));
         }
         this.totalRouteDistance = distance;
     }
 
-    public int getTotalRouteDistance(){
+    public int getTotalRouteDistance() {
         return totalRouteDistance;
     }
 
-    public int getRouteSize(){
+    public int getRouteSize() {
         return route.size();
     }
 
@@ -45,18 +46,18 @@ public class RouteClass {
         return route.get(index);
     }
 
-    public ArrayList<String> getAllCities(){
+    public ArrayList<String> getAllCities() {
         return this.route;
     }
 
-    public void swapCitiesInRoute(){
+    public void swapCitiesInRoute() {
         Random rand = new Random();
 
-        int idx1 = rand.nextInt(route.size()-1);
-        int idx2 = rand.nextInt(route.size()-1);
+        int idx1 = rand.nextInt(route.size() - 1);
+        int idx2 = rand.nextInt(route.size() - 1);
 
         // Makes sure that the second number is different than the first
-        while(idx2 == idx1 || (Math.abs(idx1-idx2) == 1)){
+        while (idx2 == idx1 || (Math.abs(idx1 - idx2) == 1)) {
             idx2 = rand.nextInt(route.size());
         }
 
@@ -66,14 +67,14 @@ public class RouteClass {
         route.set(idx2, aux);
     }
 
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[ ");
         int l = route.size();
         int i = 0;
-        for (String c : route){
+        for (String c : route) {
             sb.append(c);
-            if (i < l )
+            if (i < l)
                 sb.append(" -> ");
             i++;
         }

@@ -16,11 +16,19 @@ public class Main {
         // Starts route calculation
         startTime = System.currentTimeMillis();
         SimulatedAnnealingClass sa = new SimulatedAnnealingClass(input, d);
+        System.out.println("Temperature: " + Math.abs(sa.getT()));
         System.out.println("First route:\t" + sa.getFirstRoute() + "\n");
+
+        // Displays solutions
         System.out.println("\n\nBest route:\t\t" + sa.searchSolution());
         endTime = System.currentTimeMillis();
+        System.out.println("Worst Route: " + sa.getWorstRoute());
+        System.out.println("Last route: " + sa.getLastRoute() + "\n");
+
+        // Displays solution parameters
+        System.out.println("Best route at iteration number:\t" + sa.getBestRouteIteration());
         System.out.println(sa);
-        System.out.println("Time elapsed: " + ((double) endTime - (double) startTime) / 1000);
+        System.out.println("Time elapsed:\t\t\t\t\t" + (endTime - startTime) + " ms");
 
         // TESTS:
         // 1 - ADPTUV - 700
