@@ -22,8 +22,8 @@ public class Main {
         // Displays solutions
         System.out.println("\n\nBest route:\t\t" + sa.searchSolution());
         endTime = System.currentTimeMillis();
-        System.out.println("Worst Route: " + sa.getWorstRoute());
-        System.out.println("Last route: " + sa.getLastRoute() + "\n");
+        System.out.println("Worst Route:\t" + sa.getWorstRoute());
+        System.out.println("Last route:\t\t" + sa.getLastRoute() + "\n");
 
         // Displays solution parameters
         System.out.println("Best route at iteration number:\t" + sa.getBestRouteIteration());
